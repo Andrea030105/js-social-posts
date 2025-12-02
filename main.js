@@ -70,19 +70,15 @@ let likeCounter = document.getElementsByClassName("likes__counter");
 
 /* DEVI AGGIUNGER E TOGLIER IL LIKE DAL CONUTER DEL POST */
 
-const idPostLiked = [];
-for (let i = 0; i < btnLikes.length; i++) {
-    btnLikes[i].addEventListener("click", function () {
-        const isLiked = btnLikes[i].classList.toggle("like-button--liked");
-        if (isLiked) {
-            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${++posts[i].likes}</b> persone`;
-            idPostLiked.push(posts[i].id);
-        } else {
-            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${--posts[i].likes}</b> persone`;
-            idPostLiked.splice(idPostLiked[i - 1], 1);
-        }
-    })
-}
+counterLikes();
+
+/* Formattare le date in formato italiano (gg/mm/aaaa). */
+
+convertDateAmericana();
+
+const divDate = document.getElementsByClassName("post-meta__time");
+
+addNewDate();
 
 /* DEFINIZIONE FUNZIONI */
 
@@ -121,5 +117,39 @@ function popalteContainerPost(containerPost) {
                 </div>
             </div>
             `
+    }
+}
+
+function counterLikes() {
+    const idPostLiked = [];
+    for (let i = 0; i < btnLikes.length; i++) {
+        btnLikes[i].addEventListener("click", function () {
+            const isLiked = btnLikes[i].classList.toggle("like-button--liked");
+            if (isLiked) {
+                likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${++posts[i].likes}</b> persone`;
+                idPostLiked.push(posts[i].id);
+            } else {
+                likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${--posts[i].likes}</b> persone`;
+                idPostLiked.splice(idPostLiked[i - 1], 1);
+            }
+        })
+    }
+}
+
+function convertDateAmericana() {
+    for (let i = 0; i < posts.length; i++) {
+        let newDate = new Date(posts[i].created);
+        posts[i].created = newDate.toLocaleDateString('it-IT', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+    }
+    return posts;
+}
+
+function addNewDate() {
+    for (let i = 0; i < posts.length; i++) {
+        divDate[i].innerHTML = posts[i].created;
     }
 }
