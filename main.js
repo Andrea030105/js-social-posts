@@ -75,12 +75,10 @@ for (let i = 0; i < btnLikes.length; i++) {
     btnLikes[i].addEventListener("click", function () {
         const isLiked = btnLikes[i].classList.toggle("like-button--liked");
         if (isLiked) {
-            posts[i].likes++;
-            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b> persone`;
+            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${++posts[i].likes}</b> persone`;
             idPostLiked.push(posts[i].id);
         } else {
-            posts[i].likes--
-            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b> persone`;
+            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${--posts[i].likes}</b> persone`;
             idPostLiked.splice(idPostLiked[i - 1], 1);
         }
     })
