@@ -61,6 +61,30 @@ const posts = [
 const containerPost = document.getElementById("container");
 popalteContainerPost(containerPost);
 
+/* Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo like. */
+
+const btnLikes = document.getElementsByClassName("js-like-button");
+
+let likeCounter = document.getElementsByClassName("likes__counter");
+
+/* DEVI AGGIUNGER E TOGLIER IL LIKE DAL CONUTER DEL POST */
+
+const idPostLiked = [];
+for (let i = 0; i < btnLikes.length; i++) {
+    btnLikes[i].addEventListener("click", function () {
+        const isLiked = btnLikes[i].classList.toggle("like-button--liked");
+        if (isLiked) {
+            posts[i].likes++;
+            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b> persone`;
+            idPostLiked.push(posts[i].id);
+        } else {
+            posts[i].likes--
+            likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b> persone`;
+            idPostLiked.splice(idPostLiked[i - 1], 1);
+        }
+    })
+}
 
 /* DEFINIZIONE FUNZIONI */
 
@@ -92,7 +116,7 @@ function popalteContainerPost(containerPost) {
                             </a>
                         </div>
                         <div class="likes__counter">
-                            Piace a <b id="like-counter-" class="js-likes-counter">${posts[i].likes}</b>
+                            Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b>
                             persone
                         </div>
                     </div>
