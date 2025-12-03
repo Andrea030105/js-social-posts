@@ -110,7 +110,7 @@ function popalteContainerPost(containerPost) {
                             </a>
                         </div>
                         <div class="likes__counter">
-                            Piace a <b id="like-counter" class="js-likes-counter">${posts[i].likes}</b>
+                            Piace a <b id="like-counter-${posts[i].id}" class="js-likes-counter">${posts[i].likes}</b>
                             persone
                         </div>
                     </div>
@@ -126,10 +126,10 @@ function counterLikes() {
         btnLikes[i].addEventListener("click", function () {
             const isLiked = btnLikes[i].classList.toggle("like-button--liked");
             if (isLiked) {
-                likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${++posts[i].likes}</b> persone`;
+                likeCounter[i].innerHTML = `Piace a <b id="like-counter-${posts[i].id}" class="js-likes-counter">${++posts[i].likes}</b> persone`;
                 idPostLiked.push(posts[i].id);
             } else {
-                likeCounter[i].innerHTML = `Piace a <b id="like-counter" class="js-likes-counter">${--posts[i].likes}</b> persone`;
+                likeCounter[i].innerHTML = `Piace a <b id="like-counter-${posts[i].id}" class="js-likes-counter">${--posts[i].likes}</b> persone`;
                 idPostLiked.splice(idPostLiked[i - 1], 1);
             }
         })
